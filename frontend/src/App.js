@@ -67,7 +67,14 @@ const theme = createTheme({
     },
     MuiButton: {
       styleOverrides: {
-        root: { textTransform: 'none', fontWeight: 700, padding: '11px 22px', borderRadius: '999px' },
+        root: {
+          textTransform: 'none',
+          fontWeight: 700,
+          padding: '11px 22px',
+          borderRadius: '999px',
+          transition: 'transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease',
+          '&.Mui-focusVisible': { outline: '2px solid #67E8F9', outlineOffset: 3 },
+        },
         contained: {
           background: 'linear-gradient(135deg, #8B7CFF, #22D3EE)',
           color: '#070B14',
@@ -81,6 +88,13 @@ const theme = createTheme({
         outlined: {
           borderColor: 'rgba(148,163,184,0.28)',
           '&:hover': { borderColor: '#22D3EE', bgcolor: 'rgba(34,211,238,0.06)' },
+        },
+      },
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          '&.Mui-focusVisible': { outline: '2px solid #67E8F9', outlineOffset: 3 },
         },
       },
     },

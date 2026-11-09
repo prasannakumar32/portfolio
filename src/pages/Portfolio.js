@@ -181,12 +181,12 @@ const cardSx = {
   display: 'flex',
   flexDirection: 'column',
   overflow: 'hidden',
-  bgcolor: 'rgba(255,255,255,0.035)',
-  backgroundImage: 'linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02))',
-  border: '1px solid rgba(148,163,184,0.14)',
-  borderRadius: '20px',
-  backdropFilter: 'blur(14px)',
-  transition: 'transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease',
+  bgcolor: 'rgba(15,23,42,0.72)',
+  backgroundImage: 'linear-gradient(145deg, rgba(255,255,255,0.055), rgba(255,255,255,0.015))',
+  border: '1px solid rgba(148,163,184,0.16)',
+  borderRadius: '24px',
+  boxShadow: '0 12px 36px rgba(2,6,23,0.18)',
+  transition: 'transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease',
   '&::before': {
     content: '""',
     position: 'absolute',
@@ -198,9 +198,13 @@ const cardSx = {
     opacity: 0.65,
   },
   '&:hover': {
-    transform: 'translateY(-5px)',
-    borderColor: 'rgba(139,124,255,0.5)',
-    boxShadow: '0 20px 60px rgba(2,6,23,0.45), 0 12px 40px rgba(34,211,238,0.12)',
+    transform: 'translateY(-4px)',
+    borderColor: 'rgba(139,124,255,0.42)',
+    boxShadow: '0 20px 48px rgba(2,6,23,0.32), 0 8px 28px rgba(34,211,238,0.08)',
+  },
+  '&:focus-within': {
+    borderColor: 'rgba(103,232,249,0.55)',
+    boxShadow: '0 0 0 3px rgba(103,232,249,0.12)',
   },
 };
 
@@ -259,7 +263,7 @@ const SectionHeader = ({ eyebrow, title, subtitle }) => (
 const ProjectCard = ({ project }) => (
   <Card sx={cardSx} elevation={0}>
     <CardContent sx={{ height: '100%', display: 'flex', flexDirection: 'column', p: { xs: 2.5, md: 3 } }}>
-      <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 1.5, mb: 2 }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 1.5, mb: 2 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.25, minWidth: 0 }}>
           <Avatar
             sx={{
@@ -273,21 +277,30 @@ const ProjectCard = ({ project }) => (
           >
             <Code sx={{ fontSize: 21 }} />
           </Avatar>
-          <Typography variant="h6" sx={{ fontWeight: 800, fontSize: '1rem', lineHeight: 1.35 }}>
+          <Typography variant="h6" sx={{ minWidth: 0, overflowWrap: 'anywhere', fontWeight: 800, fontSize: '1rem', lineHeight: 1.35 }}>
             {project.title}
           </Typography>
         </Box>
         {project.repo && (
           <Tooltip title="View on GitHub">
             <IconButton
-              size="small"
+              size="medium"
               component="a"
               href={repoUrl(project.repo)}
               target="_blank"
               rel="noopener noreferrer"
-              sx={{ color: 'text.secondary', '&:hover': { color: '#67E8F9' } }}
+              aria-label={`Open ${project.title} repository on GitHub`}
+              sx={{
+                flexShrink: 0,
+                width: 40,
+                height: 40,
+                color: 'text.secondary',
+                bgcolor: 'rgba(148,163,184,0.08)',
+                border: '1px solid rgba(148,163,184,0.14)',
+                '&:hover': { color: '#67E8F9', bgcolor: 'rgba(34,211,238,0.1)', borderColor: 'rgba(34,211,238,0.28)' },
+              }}
             >
-              <OpenInNew sx={{ fontSize: 18 }} />
+              <GitHub sx={{ fontSize: 20 }} />
             </IconButton>
           </Tooltip>
         )}
@@ -332,23 +345,21 @@ const ProjectCard = ({ project }) => (
         </Box>
       )}
 
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 1, mt: 'auto', pt: 2 }}>
-        {project.featured ? (
-          <Chip
-            size="small"
-            label="Production Project"
-            sx={{
-              fontWeight: 700,
-              borderRadius: '999px',
-              bgcolor: 'rgba(139,124,255,0.12)',
-              color: '#C4B5FD',
-              border: '1px solid rgba(139,124,255,0.26)',
-            }}
-          />
-        ) : (
-          <Box />
-        )}
-        <Box sx={{ display: 'flex', gap: 1 }}>
+      {(project.featured || project.live) && (
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 1.5, mt: 'auto', pt: 2 }}>
+          {project.featured && (
+            <Chip
+              size="small"
+              label="Production Project"
+              sx={{
+                fontWeight: 700,
+                borderRadius: '999px',
+                bgcolor: 'rgba(139,124,255,0.12)',
+                color: '#C4B5FD',
+                border: '1px solid rgba(139,124,255,0.26)',
+              }}
+            />
+          )}
           {project.live && (
             <Button
               variant="contained"
@@ -359,6 +370,7 @@ const ProjectCard = ({ project }) => (
               endIcon={<OpenInNew sx={{ fontSize: 16 }} />}
               sx={{
                 px: 2,
+                ml: project.featured ? 0 : 'auto',
                 background: accentGradient,
                 color: '#070B14',
                 '&:hover': { background: 'linear-gradient(135deg, #9D8FFF, #38E1F2)' },
@@ -367,31 +379,8 @@ const ProjectCard = ({ project }) => (
               Live
             </Button>
           )}
-          {project.repo ? (
-            <Button
-              variant="outlined"
-              size="small"
-              href={repoUrl(project.repo)}
-              target="_blank"
-              rel="noopener noreferrer"
-              endIcon={<OpenInNew sx={{ fontSize: 16 }} />}
-              sx={{
-                borderColor: 'rgba(139,124,255,0.35)',
-                color: '#E9D5FF',
-                '&:hover': { borderColor: '#8B7CFF', bgcolor: 'rgba(139,124,255,0.1)' },
-              }}
-            >
-              Repository
-            </Button>
-          ) : (
-            <Chip
-              size="small"
-              label="Selected Work"
-              sx={{ fontWeight: 700, borderRadius: '999px', color: 'text.secondary' }}
-            />
-          )}
         </Box>
-      </Box>
+      )}
     </CardContent>
   </Card>
 );
@@ -789,7 +778,7 @@ const Portfolio = () => {
           title="Projects & Repositories"
           subtitle="A collection of my GitHub repositories and production-focused applications."
         />
-        <Grid container spacing={3}>
+        <Grid container spacing={{ xs: 2, md: 3 }} alignItems="stretch">
           {projects.map((project) => (
             <Grid item xs={12} sm={6} md={4} key={project.title}>
               <ProjectCard project={project} />
