@@ -232,6 +232,12 @@ const skillChipSx = {
   '&:hover': { bgcolor: 'rgba(139,124,255,0.18)' },
 };
 
+const projectCardSx = {
+  ...cardSx,
+  bgcolor: '#0D1424',
+  backgroundImage: 'none',
+};
+
 const SectionHeader = ({ eyebrow, title, subtitle }) => (
   <Box sx={{ mb: { xs: 4, md: 5 }, maxWidth: 760 }}>
     <Typography
@@ -267,7 +273,7 @@ const SectionHeader = ({ eyebrow, title, subtitle }) => (
 );
 
 const ProjectCard = ({ project }) => (
-  <Card sx={cardSx} elevation={0}>
+  <Card sx={projectCardSx} elevation={0}>
     <CardContent sx={{ height: '100%', display: 'flex', flexDirection: 'column', p: { xs: 2.5, md: 3 } }}>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 1.5, mb: 2 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.25, minWidth: 0 }}>
@@ -283,7 +289,7 @@ const ProjectCard = ({ project }) => (
           >
             <Code sx={{ fontSize: 21 }} />
           </Avatar>
-          <Typography variant="h6" sx={{ minWidth: 0, overflowWrap: 'anywhere', fontWeight: 800, fontSize: '1rem', lineHeight: 1.35 }}>
+          <Typography variant="h6" sx={{ minWidth: 0, overflowWrap: 'anywhere', fontWeight: 800, fontSize: '1rem', lineHeight: 1.35, color: '#F8FAFC' }}>
             {project.title}
           </Typography>
         </Box>
@@ -334,7 +340,7 @@ const ProjectCard = ({ project }) => (
         )}
       </Box>
 
-      <Typography variant="body2" color="text.secondary" sx={{ mb: project.features ? 1.5 : 0, flexGrow: 1 }}>
+      <Typography variant="body2" sx={{ mb: project.features ? 1.5 : 0, flexGrow: 1, color: '#CBD5E1' }}>
         {project.description}
       </Typography>
 
@@ -343,7 +349,7 @@ const ProjectCard = ({ project }) => (
           {project.features.map((feature) => (
             <Box key={feature} sx={{ display: 'flex', gap: 1, py: 0.4 }}>
               <Box sx={{ width: 6, height: 6, borderRadius: '50%', bgcolor: '#67E8F9', mt: '8px', flexShrink: 0 }} />
-              <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.84rem' }}>
+              <Typography variant="body2" sx={{ fontSize: '0.84rem', color: '#CBD5E1' }}>
                 {feature}
               </Typography>
             </Box>
