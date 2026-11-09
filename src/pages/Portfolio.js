@@ -453,7 +453,7 @@ const Portfolio = () => {
           }}
         />
 
-        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1, py: { xs: 8, md: 12 }, id: 'home' }}>
+        <Container id="home" maxWidth="lg" sx={{ position: 'relative', zIndex: 1, py: { xs: 8, md: 12 } }}>
           <Grid container spacing={{ xs: 5, md: 7 }} alignItems="center">
             <Grid item xs={12} lg={7}>
               <Chip
@@ -643,7 +643,7 @@ const Portfolio = () => {
       </Box>
 
       {/* About */}
-      <Container maxWidth="lg" sx={{ py: { xs: 7, md: 9 }, id: 'about' }}>
+      <Container id="about" maxWidth="lg" sx={{ py: { xs: 7, md: 9 } }}>
         <SectionHeader eyebrow="01 · Profile" title="About Me" subtitle="A quick look at my background, working style, and the kind of products I enjoy building." />
         <Grid container spacing={3}>
           <Grid item xs={12} md={5}>
@@ -703,7 +703,7 @@ const Portfolio = () => {
       </Container>
 
       {/* Skills */}
-      <Container maxWidth="lg" sx={{ py: { xs: 7, md: 9 }, id: 'skills' }}>
+      <Container id="skills" maxWidth="lg" sx={{ py: { xs: 7, md: 9 } }}>
         <SectionHeader eyebrow="02 · Stack" title="Technical Skills" subtitle="The technologies and tools I use to design, build, and ship modern web applications." />
         <Grid container spacing={3}>
           {[
@@ -745,7 +745,7 @@ const Portfolio = () => {
       </Container>
 
       {/* Experience */}
-      <Container maxWidth="lg" sx={{ py: { xs: 7, md: 9 }, id: 'experience' }}>
+      <Container id="experience" maxWidth="lg" sx={{ py: { xs: 7, md: 9 } }}>
         <SectionHeader eyebrow="03 · Experience" title="Work Experience" />
         <Grid container spacing={4} justifyContent="center">
           {experience.map((exp, index) => (
@@ -784,7 +784,7 @@ const Portfolio = () => {
       </Container>
 
       {/* Projects */}
-      <Container maxWidth="lg" sx={{ py: { xs: 7, md: 9 }, id: 'projects' }}>
+      <Container id="projects" maxWidth="lg" sx={{ py: { xs: 7, md: 9 } }}>
         <SectionHeader
           eyebrow="04 · Selected Work"
           title="Projects & Repositories"
@@ -800,7 +800,7 @@ const Portfolio = () => {
       </Container>
 
       {/* Education */}
-      <Container maxWidth="lg" sx={{ py: { xs: 7, md: 9 }, id: 'education' }}>
+      <Container id="education" maxWidth="lg" sx={{ py: { xs: 7, md: 9 } }}>
         <SectionHeader eyebrow="05 · Education" title="Education" />
         <Grid container spacing={3} justifyContent="center">
           {education.map((edu, index) => (
@@ -831,7 +831,7 @@ const Portfolio = () => {
       </Container>
 
       {/* Contact */}
-      <Container maxWidth="lg" sx={{ py: { xs: 7, md: 9 }, id: 'contact' }}>
+      <Container id="contact" maxWidth="lg" sx={{ py: { xs: 7, md: 9 } }}>
         <SectionHeader eyebrow="06 · Contact" title="Get In Touch" subtitle="Have a project, role, or collaboration in mind? I'd love to hear from you." />
         <Grid container spacing={3} justifyContent="center">
           {[
