@@ -28,8 +28,7 @@ This repository contains my **personal portfolio website**, built to show:
 ## 🚀 Live Demo
 
 👉 **Portfolio Website:**  
-Add your deployment link here (e.g., https://prasannakumar32.github.io/portfolio)  
-(*If live on GitHub Pages or deployed elsewhere*)
+
 
 ---
 
@@ -59,62 +58,11 @@ This portfolio website uses:
 - **Node.js & Express.js** — Backend components (if used)
 - **Responsive design** — Mobile and desktop friendly
 
----
-
-## 📌 Features
-
-✔ Clean and professional UI  
-✔ Projects showcase  
-✔ About & Skills sections  
-✔ Contact and social links  
-✔ Deployed for public viewing
-
----
-
-## 🛠 Setup & Local Run (optional)
-
-*(If you want to run it locally)*
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/prasannakumar32/portfolio.git
-
-
-Navigate into the folder:
-
-cd portfolio
-
-
-Install dependencies:
-
-npm install
-
-
-Start the application:
-
-npm start
-
-
-Open in browser:
-
-http://localhost:3000
-
-💼 Why This Portfolio Matters
-
-This portfolio represents my professional identity as a developer and highlights:
-
-Real projects I’ve built
-
-Modern web development skills
-
-Ability to deliver clean, functional applications
-
-It helps recruiters and employers quickly understand my capabilities.
 
 📬 Contact Me
 
-📧 Email: your email here
-🔗 LinkedIn: your LinkedIn profile link
+📧 Email: espprasanna613@gmail.com
+🔗 LinkedIn: https://www.linkedin.com/in/prasanna-kumar-e-4b370a253
 🐱 GitHub: https://github.com/prasannakumar32
 
 📄 License
