@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Box,
   Container,
@@ -9,11 +9,7 @@ import {
   Avatar,
   Button,
   Paper,
-  List,
-  ListItem,
-  ListItemText,
   Chip,
-  Collapse,
   IconButton,
   Tooltip,
   Divider,
@@ -23,29 +19,19 @@ import {
   LinkedIn,
   Email,
   Code,
-  Build,
-  School,
-  Work,
-  Dashboard,
   Storage,
   Api,
+  Build,
+  Web,
+  School,
+  Work,
   LocationOn,
   Phone,
-  ContentCopy,
-  Terminal,
-  ExpandMore,
   OpenInNew,
 } from '@mui/icons-material';
 
 const GITHUB_USER = 'prasannakumar32';
 const repoUrl = (name) => `https://github.com/${GITHUB_USER}/${name}`;
-
-const cloneSteps = (repo, pkg = 'npm') => [
-  `git clone ${repoUrl(repo)}.git`,
-  `cd ${repo}`,
-  `${pkg} install`,
-  `${pkg} start`,
-];
 
 const technicalSkills = {
   languages: ['JavaScript', 'Python'],
@@ -77,108 +63,64 @@ const projects = [
     title: 'AI-Driven E-Commerce Site',
     repo: 'ai_driven_e-commerce_site',
     language: 'JavaScript',
+    live: 'https://ai-driven-e-commerce-site.onrender.com',
     description: 'AI-driven e-commerce application with product catalog, recommendations, and a modern shopping experience.',
-    install: cloneSteps('ai_driven_e-commerce_site'),
-  },
-  {
-    title: 'T-Mark NSW Transport',
-    repo: 'tmark-nsw-transport',
-    language: 'JavaScript',
-    description: 'Transport management system for tracking and managing transport operations and logistics workflows.',
-    install: cloneSteps('tmark-nsw-transport'),
-  },
-  {
-    title: 'Voice Assistance',
-    repo: 'voice_assistance',
-    language: 'JavaScript',
-    description: 'Voice-controlled assistant web app leveraging the Web Speech API for hands-free interaction.',
-    install: cloneSteps('voice_assistance'),
-  },
-  {
-    title: 'CRM Portal',
-    repo: 'crm_portal',
-    language: 'JavaScript',
-    description: 'Customer relationship management portal for managing contacts, leads, and customer interactions.',
-    install: cloneSteps('crm_portal'),
   },
   {
     title: 'CRM Extractor',
     repo: 'crm-extractor',
     language: 'JavaScript',
     description: 'Tool to extract and process CRM data, useful for reporting and data migration workflows.',
-    install: cloneSteps('crm-extractor'),
-  },
-  {
-    title: 'Reminder Webpart',
-    repo: 'reminder_webpart',
-    language: 'JavaScript',
-    description: 'Reusable reminder component/web part that can be embedded to add reminder functionality.',
-    install: cloneSteps('reminder_webpart'),
   },
   {
     title: 'Reminder App',
     repo: 'reminder-app-',
     language: 'CSS',
     description: 'Lightweight reminder application with a clean, responsive user interface.',
-    install: [
-      `git clone ${repoUrl('reminder-app-')}.git`,
-      'cd reminder-app-',
-      'Open index.html in your browser',
-    ],
   },
   {
     title: 'Truth or Dare App',
     repo: 'truth-or-dare-app',
     language: 'JavaScript',
     description: 'Fun party game app that randomly picks truth or dare prompts for groups.',
-    install: cloneSteps('truth-or-dare-app'),
   },
   {
     title: 'Smart Bookmark',
     repo: 'smart-bookmark',
     language: 'TypeScript',
+    live: 'https://smart-bookmark-virid.vercel.app/',
     description: 'Smart bookmark manager built with TypeScript for saving, organizing, and accessing links.',
-    install: [
-      `git clone ${repoUrl('smart-bookmark')}.git`,
-      'cd smart-bookmark',
-      'npm install',
-      'npm run dev',
-    ],
   },
   {
     title: 'Sale Dashboard',
     repo: 'sale_dashboard',
     language: 'JavaScript',
     description: 'Sales analytics dashboard with charts and metrics to visualize business performance.',
-    install: cloneSteps('sale_dashboard'),
   },
   {
     title: 'Asset Management System',
     repo: 'asset-management',
     language: 'JavaScript',
+    live: 'https://asset-management-gbrb.onrender.com',
     description: 'Full-stack asset allocation, return, and lifecycle tracking application with role-based access.',
-    install: cloneSteps('asset-management'),
   },
   {
     title: 'Pipeline Node Abstraction',
     repo: 'pipeline_node_abstraction',
     language: 'JavaScript',
     description: 'Abstraction layer for building and composing pipeline-based processing nodes.',
-    install: cloneSteps('pipeline_node_abstraction'),
   },
   {
     title: 'DDB Test',
     repo: 'ddb_test_32',
     language: 'JavaScript',
     description: 'Experiments and tests around AWS DynamoDB data modeling and operations.',
-    install: cloneSteps('ddb_test_32'),
   },
   {
     title: 'Short URL Generator',
     repo: 'shorter_url',
     language: 'JavaScript',
     description: 'URL shortening service with unique short link generation, redirection, and click tracking.',
-    install: cloneSteps('shorter_url'),
   },
   {
     title: 'Allocation Management System',
@@ -192,7 +134,6 @@ const projects = [
       'Integration of 6+ REST APIs',
       'Processed and managed 10,000+ records',
     ],
-    install: null,
   },
 ];
 
@@ -217,280 +158,357 @@ const education = [
   },
 ];
 
+const accentGradient = 'linear-gradient(135deg, #8B7CFF 0%, #22D3EE 100%)';
+const gradientTextSx = {
+  background: 'linear-gradient(90deg, #F8FAFC 0%, #C4B5FD 52%, #67E8F9 100%)',
+  WebkitBackgroundClip: 'text',
+  backgroundClip: 'text',
+  color: 'transparent',
+  WebkitTextFillColor: 'transparent',
+};
+
 const sectionTitleSx = {
   fontWeight: 800,
-  fontSize: { xs: '1.9rem', md: '2.4rem' },
-  mb: 1,
-  background: 'linear-gradient(90deg, #818cf8, #22d3ee)',
-  WebkitBackgroundClip: 'text',
-  WebkitTextFillColor: 'transparent',
-  backgroundClip: 'text',
+  fontSize: { xs: '2rem', md: '2.75rem' },
+  letterSpacing: '-0.03em',
+  lineHeight: 1.1,
+  ...gradientTextSx,
 };
 
 const cardSx = {
+  position: 'relative',
   height: '100%',
   display: 'flex',
   flexDirection: 'column',
-  bgcolor: 'rgba(255,255,255,0.04)',
-  border: '1px solid rgba(255,255,255,0.08)',
-  backdropFilter: 'blur(12px)',
-  borderRadius: 3,
+  overflow: 'hidden',
+  bgcolor: 'rgba(255,255,255,0.035)',
+  backgroundImage: 'linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02))',
+  border: '1px solid rgba(148,163,184,0.14)',
+  borderRadius: '20px',
+  backdropFilter: 'blur(14px)',
   transition: 'transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease',
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 1,
+    background: accentGradient,
+    opacity: 0.65,
+  },
   '&:hover': {
-    transform: 'translateY(-6px)',
-    borderColor: 'rgba(129,140,248,0.5)',
-    boxShadow: '0 12px 40px rgba(99,102,241,0.25)',
+    transform: 'translateY(-5px)',
+    borderColor: 'rgba(139,124,255,0.5)',
+    boxShadow: '0 20px 60px rgba(2,6,23,0.45), 0 12px 40px rgba(34,211,238,0.12)',
   },
 };
 
-const CommandRow = ({ command }) => {
-  const [copied, setCopied] = useState(false);
-  const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(command);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
-    } catch (e) { /* clipboard unavailable */ }
-  };
-  return (
-    <Box
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        gap: 1,
-        bgcolor: 'rgba(0,0,0,0.4)',
-        border: '1px solid rgba(255,255,255,0.08)',
-        borderRadius: 1.5,
-        px: 1.5,
-        py: 0.8,
-      }}
-    >
-      <Typography
-        component="code"
-        sx={{ fontFamily: '"JetBrains Mono", Consolas, monospace', fontSize: '0.8rem', color: '#a5f3fc', wordBreak: 'break-all' }}
-      >
-        {command}
-      </Typography>
-      <Tooltip title={copied ? 'Copied!' : 'Copy'}>
-        <IconButton size="small" onClick={copy} sx={{ color: 'text.secondary', '&:hover': { color: 'primary.light' } }}>
-          <ContentCopy sx={{ fontSize: 16 }} />
-        </IconButton>
-      </Tooltip>
-    </Box>
-  );
-};
-
-const ProjectCard = ({ project }) => {
-  const [open, setOpen] = useState(false);
-  return (
-    <Card sx={cardSx}>
-      <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-        <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', mb: 1.5, gap: 1 }}>
-          <Typography variant="h6" sx={{ fontWeight: 700, fontSize: '1.05rem', lineHeight: 1.35 }}>
-            {project.title}
-          </Typography>
-          {project.repo && (
-            <Tooltip title="View on GitHub">
-              <IconButton
-                size="small"
-                component="a"
-                href={repoUrl(project.repo)}
-                target="_blank"
-                rel="noopener noreferrer"
-                sx={{ color: 'text.secondary', '&:hover': { color: '#e6edf3' } }}
-              >
-                <OpenInNew sx={{ fontSize: 18 }} />
-              </IconButton>
-            </Tooltip>
-          )}
-        </Box>
-
-        <Box sx={{ display: 'flex', gap: 1, mb: 1.5, flexWrap: 'wrap' }}>
-          <Chip
-            size="small"
-            icon={<Code sx={{ fontSize: 14 }} />}
-            label={project.language}
-            sx={{ bgcolor: 'rgba(129,140,248,0.15)', color: '#a5b4fc', border: '1px solid rgba(129,140,248,0.3)', fontWeight: 600 }}
-          />
-          {project.featured && (
-            <Chip size="small" label="Featured" sx={{ bgcolor: 'rgba(34,211,238,0.15)', color: '#67e8f9', border: '1px solid rgba(34,211,238,0.3)', fontWeight: 600 }} />
-          )}
-        </Box>
-
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5, flexGrow: 1 }}>
-          {project.description}
-        </Typography>
-
-        {project.features && (
-          <List dense sx={{ py: 0, mb: 1.5 }}>
-            {project.features.map((f, i) => (
-              <ListItem key={i} sx={{ py: 0.25, px: 0 }}>
-                <ListItemText
-                  primary={`• ${f}`}
-                  primaryTypographyProps={{ variant: 'body2', sx: { fontSize: '0.82rem' } }}
-                />
-              </ListItem>
-            ))}
-          </List>
-        )}
-
-        <Box sx={{ display: 'flex', gap: 1, mt: 'auto' }}>
-          {project.repo && (
-            <Button
-              variant="outlined"
-              size="small"
-              startIcon={<GitHub />}
-              href={repoUrl(project.repo)}
-              target="_blank"
-              rel="noopener noreferrer"
-              sx={{ borderColor: 'rgba(255,255,255,0.2)', color: 'text.primary', '&:hover': { borderColor: '#e6edf3', bgcolor: 'rgba(255,255,255,0.06)' } }}
-            >
-              Code
-            </Button>
-          )}
-          {project.install && (
-            <Button
-              variant="contained"
-              size="small"
-              endIcon={<ExpandMore sx={{ transform: open ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />}
-              onClick={() => setOpen(!open)}
-              sx={{
-                ml: 'auto',
-                background: 'linear-gradient(90deg, #6366f1, #22d3ee)',
-                '&:hover': { background: 'linear-gradient(90deg, #4f46e5, #06b6d4)' },
-              }}
-            >
-              Setup
-            </Button>
-          )}
-        </Box>
-
-        {project.install && (
-          <Collapse in={open}>
-            <Box sx={{ mt: 2 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-                <Terminal sx={{ fontSize: 16, color: '#67e8f9' }} />
-                <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600, letterSpacing: 1 }}>
-                  INSTALLATION
-                </Typography>
-              </Box>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.75 }}>
-                {project.install.map((cmd, i) => (
-                  <CommandRow key={i} command={cmd} />
-                ))}
-              </Box>
-            </Box>
-          </Collapse>
-        )}
-      </CardContent>
-    </Card>
-  );
-};
-
-const SectionHeader = ({ title, subtitle }) => (
-  <Box sx={{ textAlign: 'center', mb: 5 }}>
-    <Typography variant="h3" sx={sectionTitleSx}>{title}</Typography>
-    {subtitle && (
-      <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 640, mx: 'auto' }}>
-        {subtitle}
-      </Typography>
-    )}
-    <Box sx={{ width: 80, height: 4, mx: 'auto', mt: 2, borderRadius: 2, background: 'linear-gradient(90deg, #6366f1, #22d3ee)' }} />
-  </Box>
-);
-
 const skillCardSx = {
+  ...cardSx,
   p: 3,
-  height: '100%',
-  bgcolor: 'rgba(255,255,255,0.04)',
-  border: '1px solid rgba(255,255,255,0.08)',
-  borderRadius: 3,
-  transition: 'transform 0.25s ease, border-color 0.25s ease',
-  '&:hover': { transform: 'translateY(-4px)', borderColor: 'rgba(129,140,248,0.4)' },
+  '&:hover': {
+    ...cardSx['&:hover'],
+    transform: 'translateY(-4px)',
+  },
 };
 
 const skillChipSx = {
   fontWeight: 600,
-  bgcolor: 'rgba(129,140,248,0.12)',
-  color: '#a5b4fc',
-  border: '1px solid rgba(129,140,248,0.25)',
-  '&:hover': { bgcolor: 'rgba(129,140,248,0.22)' },
+  borderRadius: '999px',
+  bgcolor: 'rgba(139,124,255,0.1)',
+  color: '#C4B5FD',
+  border: '1px solid rgba(139,124,255,0.22)',
+  '&:hover': { bgcolor: 'rgba(139,124,255,0.18)' },
 };
 
+const SectionHeader = ({ eyebrow, title, subtitle }) => (
+  <Box sx={{ mb: { xs: 4, md: 5 }, maxWidth: 760 }}>
+    <Typography
+      variant="overline"
+      sx={{
+        display: 'block',
+        mb: 1,
+        color: '#67E8F9',
+        fontWeight: 700,
+        letterSpacing: '0.18em',
+      }}
+    >
+      {eyebrow}
+    </Typography>
+    <Typography variant="h3" sx={{ ...sectionTitleSx, mb: 1.5 }}>
+      {title}
+    </Typography>
+    {subtitle && (
+      <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 640, fontSize: '1.02rem' }}>
+        {subtitle}
+      </Typography>
+    )}
+    <Box
+      sx={{
+        width: 76,
+        height: 3,
+        mt: 2,
+        borderRadius: '999px',
+        background: accentGradient,
+      }}
+    />
+  </Box>
+);
+
+const ProjectCard = ({ project }) => (
+  <Card sx={cardSx} elevation={0}>
+    <CardContent sx={{ height: '100%', display: 'flex', flexDirection: 'column', p: { xs: 2.5, md: 3 } }}>
+      <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 1.5, mb: 2 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.25, minWidth: 0 }}>
+          <Avatar
+            sx={{
+              width: 42,
+              height: 42,
+              borderRadius: '14px',
+              bgcolor: 'rgba(139,124,255,0.14)',
+              color: '#C4B5FD',
+              border: '1px solid rgba(139,124,255,0.24)',
+            }}
+          >
+            <Code sx={{ fontSize: 21 }} />
+          </Avatar>
+          <Typography variant="h6" sx={{ fontWeight: 800, fontSize: '1rem', lineHeight: 1.35 }}>
+            {project.title}
+          </Typography>
+        </Box>
+        {project.repo && (
+          <Tooltip title="View on GitHub">
+            <IconButton
+              size="small"
+              component="a"
+              href={repoUrl(project.repo)}
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{ color: 'text.secondary', '&:hover': { color: '#67E8F9' } }}
+            >
+              <OpenInNew sx={{ fontSize: 18 }} />
+            </IconButton>
+          </Tooltip>
+        )}
+      </Box>
+
+      <Box sx={{ display: 'flex', gap: 1, mb: 1.5, flexWrap: 'wrap' }}>
+        <Chip
+          size="small"
+          icon={<Code sx={{ fontSize: 14 }} />}
+          label={project.language}
+          sx={skillChipSx}
+        />
+        {project.featured && (
+          <Chip
+            size="small"
+            label="Featured"
+            sx={{
+              fontWeight: 700,
+              borderRadius: '999px',
+              bgcolor: 'rgba(34,211,238,0.12)',
+              color: '#67E8F9',
+              border: '1px solid rgba(34,211,238,0.28)',
+            }}
+          />
+        )}
+      </Box>
+
+      <Typography variant="body2" color="text.secondary" sx={{ mb: project.features ? 1.5 : 0, flexGrow: 1 }}>
+        {project.description}
+      </Typography>
+
+      {project.features && (
+        <Box sx={{ mb: 1.5 }}>
+          {project.features.map((feature) => (
+            <Box key={feature} sx={{ display: 'flex', gap: 1, py: 0.4 }}>
+              <Box sx={{ width: 6, height: 6, borderRadius: '50%', bgcolor: '#67E8F9', mt: '8px', flexShrink: 0 }} />
+              <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.84rem' }}>
+                {feature}
+              </Typography>
+            </Box>
+          ))}
+        </Box>
+      )}
+
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 1, mt: 'auto', pt: 2 }}>
+        {project.featured ? (
+          <Chip
+            size="small"
+            label="Production Project"
+            sx={{
+              fontWeight: 700,
+              borderRadius: '999px',
+              bgcolor: 'rgba(139,124,255,0.12)',
+              color: '#C4B5FD',
+              border: '1px solid rgba(139,124,255,0.26)',
+            }}
+          />
+        ) : (
+          <Box />
+        )}
+        <Box sx={{ display: 'flex', gap: 1 }}>
+          {project.live && (
+            <Button
+              variant="contained"
+              size="small"
+              href={project.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              endIcon={<OpenInNew sx={{ fontSize: 16 }} />}
+              sx={{
+                px: 2,
+                background: accentGradient,
+                color: '#070B14',
+                '&:hover': { background: 'linear-gradient(135deg, #9D8FFF, #38E1F2)' },
+              }}
+            >
+              Live
+            </Button>
+          )}
+          {project.repo ? (
+            <Button
+              variant="outlined"
+              size="small"
+              href={repoUrl(project.repo)}
+              target="_blank"
+              rel="noopener noreferrer"
+              endIcon={<OpenInNew sx={{ fontSize: 16 }} />}
+              sx={{
+                borderColor: 'rgba(139,124,255,0.35)',
+                color: '#E9D5FF',
+                '&:hover': { borderColor: '#8B7CFF', bgcolor: 'rgba(139,124,255,0.1)' },
+              }}
+            >
+              Repository
+            </Button>
+          ) : (
+            <Chip
+              size="small"
+              label="Selected Work"
+              sx={{ fontWeight: 700, borderRadius: '999px', color: 'text.secondary' }}
+            />
+          )}
+        </Box>
+      </Box>
+    </CardContent>
+  </Card>
+);
+
 const Portfolio = () => {
+  const stats = [
+    { value: '6+', label: 'REST APIs integrated' },
+    { value: '10K+', label: 'Records processed' },
+    { value: projects.length, label: 'Projects built' },
+  ];
+
+  const profileDetails = [
+    { icon: <LocationOn />, text: 'Namakkal, Tamil Nadu, India' },
+    { icon: <Email />, text: 'espprasanna613@gmail.com' },
+    { icon: <GitHub />, text: `@${GITHUB_USER} on GitHub` },
+  ];
+
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: 'background.default', color: 'text.primary' }}>
       {/* Hero */}
-      <Box
-        sx={{
-          position: 'relative',
-          overflow: 'hidden',
-          background:
-            'radial-gradient(ellipse 80% 60% at 20% 0%, rgba(99,102,241,0.25), transparent), radial-gradient(ellipse 60% 50% at 90% 20%, rgba(34,211,238,0.15), transparent)',
-        }}
-      >
-        <Container maxWidth="lg" sx={{ py: { xs: 8, md: 12 }, position: 'relative', zIndex: 1 }} id="home">
-          <Grid container spacing={5} alignItems="center">
-            <Grid item xs={12} md={8}>
+      <Box sx={{ position: 'relative', overflow: 'hidden' }}>
+        <Box
+          aria-hidden="true"
+          sx={{
+            position: 'absolute',
+            inset: 0,
+            backgroundImage:
+              'linear-gradient(rgba(148,163,184,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,0.045) 1px, transparent 1px)',
+            backgroundSize: '56px 56px',
+            maskImage: 'radial-gradient(ellipse 85% 70% at 50% 0%, black 15%, transparent 78%)',
+            WebkitMaskImage: 'radial-gradient(ellipse 85% 70% at 50% 0%, black 15%, transparent 78%)',
+          }}
+        />
+        <Box
+          aria-hidden="true"
+          sx={{
+            position: 'absolute',
+            top: -180,
+            left: '6%',
+            width: 560,
+            height: 560,
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(139,124,255,0.22), transparent 68%)',
+            filter: 'blur(10px)',
+          }}
+        />
+        <Box
+          aria-hidden="true"
+          sx={{
+            position: 'absolute',
+            top: -120,
+            right: '4%',
+            width: 480,
+            height: 480,
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(34,211,238,0.14), transparent 68%)',
+            filter: 'blur(10px)',
+          }}
+        />
+
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1, py: { xs: 8, md: 12 }, id: 'home' }}>
+          <Grid container spacing={{ xs: 5, md: 7 }} alignItems="center">
+            <Grid item xs={12} lg={7}>
               <Chip
-                label="🚀 Open to Full Stack Developer roles"
-                sx={{ mb: 2, bgcolor: 'rgba(34,211,238,0.12)', color: '#67e8f9', border: '1px solid rgba(34,211,238,0.3)', fontWeight: 600 }}
+                icon={<Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: '#34D399', boxShadow: '0 0 0 3px rgba(52,211,153,0.15)' }} />}
+                label="Open to Full Stack Developer roles"
+                sx={{
+                  mb: 3,
+                  height: 34,
+                  bgcolor: 'rgba(52,211,153,0.1)',
+                  color: '#6EE7B7',
+                  border: '1px solid rgba(52,211,153,0.25)',
+                  fontWeight: 700,
+                  '& .MuiChip-icon': { color: '#34D399' },
+                }}
               />
               <Typography
-                variant="h2"
-                gutterBottom
+                variant="h1"
                 sx={{
                   fontWeight: 800,
-                  fontSize: { xs: '2.4rem', md: '3.6rem' },
-                  lineHeight: 1.15,
-                  background: 'linear-gradient(90deg, #f8fafc, #a5b4fc 60%, #67e8f9)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
+                  fontSize: { xs: '2.7rem', md: '4.35rem' },
+                  lineHeight: 1.04,
+                  letterSpacing: '-0.045em',
+                  mb: 2,
                 }}
               >
-                Hi, I'm Prasannakumar E
+                Hi, I'm <Box component="span" sx={gradientTextSx}>Prasannakumar E</Box>
               </Typography>
               <Typography
                 variant="h5"
+                component="h2"
                 sx={{
-                  fontWeight: 600,
+                  fontWeight: 700,
                   mb: 2,
-                  background: 'linear-gradient(90deg, #818cf8, #22d3ee)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                  width: 'fit-content',
+                  color: '#67E8F9',
+                  fontSize: { xs: '1.35rem', md: '1.8rem' },
                 }}
               >
-                Full Stack Developer | React • Node.js • REST APIs • NoSQL
+                Full Stack Developer
               </Typography>
-              <Typography variant="body1" color="text.secondary" paragraph sx={{ fontSize: '1.1rem', maxWidth: 620 }}>
+              <Typography variant="body1" color="text.secondary" paragraph sx={{ fontSize: '1.08rem', maxWidth: 640, lineHeight: 1.75 }}>
                 I build scalable web applications using React.js, Node.js, and modern backend technologies.
                 From production–consumption allocation platforms to asset management systems — I focus on
                 clean architecture, performance, and maintainable code that delivers real business value.
               </Typography>
-              <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 1.5, mb: 3, mt: 1 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <LocationOn sx={{ mr: 1, color: '#67e8f9', fontSize: 20 }} />
-                  <Typography variant="body2" color="text.secondary">Namakkal, Tamil Nadu, India</Typography>
-                </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <Email sx={{ mr: 1, color: '#67e8f9', fontSize: 20 }} />
-                  <Typography variant="body2" color="text.secondary">espprasanna613@gmail.com</Typography>
-                </Box>
-              </Box>
-              <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+
+              <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap', mb: 3 }}>
                 <Button
                   variant="contained"
                   size="large"
                   href="#contact"
                   sx={{
                     px: 4,
-                    background: 'linear-gradient(90deg, #6366f1, #22d3ee)',
-                    '&:hover': { background: 'linear-gradient(90deg, #4f46e5, #06b6d4)', transform: 'translateY(-2px)' },
-                    transition: 'transform 0.2s',
+                    background: accentGradient,
+                    color: '#070B14',
+                    '&:hover': { background: 'linear-gradient(135deg, #9D8FFF, #38E1F2)', transform: 'translateY(-2px)' },
+                    transition: 'transform 0.2s ease, background 0.2s ease',
                   }}
                 >
                   Get In Touch
@@ -499,104 +517,220 @@ const Portfolio = () => {
                   variant="outlined"
                   size="large"
                   href="#projects"
-                  sx={{ px: 4, borderColor: 'rgba(255,255,255,0.25)', '&:hover': { borderColor: '#22d3ee', color: '#67e8f9' } }}
+                  sx={{
+                    px: 4,
+                    borderColor: 'rgba(148,163,184,0.28)',
+                    color: 'text.primary',
+                    '&:hover': { borderColor: '#22D3EE', color: '#67E8F9', bgcolor: 'rgba(34,211,238,0.06)' },
+                  }}
                 >
                   View Projects
                 </Button>
               </Box>
+
+              <Box sx={{ display: 'flex', gap: { xs: 3, md: 5 }, flexWrap: 'wrap' }}>
+                {stats.map((stat) => (
+                  <Box key={stat.label}>
+                    <Typography variant="h4" sx={{ ...gradientTextSx, fontWeight: 800, lineHeight: 1 }}>
+                      {stat.value}
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600, letterSpacing: '0.04em' }}>
+                      {stat.label}
+                    </Typography>
+                  </Box>
+                ))}
+              </Box>
             </Grid>
-            <Grid item xs={12} md={4} sx={{ textAlign: 'center' }}>
-              <Box sx={{ position: 'relative', display: 'inline-block' }}>
+
+            <Grid item xs={12} lg={5}>
+              <Box sx={{ position: 'relative', maxWidth: 430, mx: { xs: 'auto', lg: 0 } }}>
                 <Box
+                  aria-hidden="true"
                   sx={{
                     position: 'absolute',
-                    inset: -12,
-                    borderRadius: '50%',
-                    background: 'conic-gradient(from 0deg, #6366f1, #22d3ee, #ec4899, #6366f1)',
-                    filter: 'blur(20px)',
-                    opacity: 0.6,
-                    animation: 'spin 6s linear infinite',
-                    '@keyframes spin': { '100%': { transform: 'rotate(360deg)' } },
+                    inset: -24,
+                    borderRadius: '32px',
+                    background: 'radial-gradient(circle at 30% 20%, rgba(139,124,255,0.2), transparent 62%)',
+                    filter: 'blur(18px)',
                   }}
                 />
-                <Avatar
+                <Paper
+                  elevation={0}
                   sx={{
-                    width: { xs: 180, md: 220 },
-                    height: { xs: 180, md: 220 },
-                    mx: 'auto',
-                    fontSize: '3.4rem',
-                    fontWeight: 800,
-                    background: 'linear-gradient(135deg, #6366f1, #22d3ee)',
-                    color: '#0b0f1a',
-                    border: '4px solid rgba(255,255,255,0.1)',
                     position: 'relative',
+                    overflow: 'hidden',
+                    p: { xs: 3, md: 3.5 },
+                    borderRadius: '24px',
+                    bgcolor: 'rgba(13,20,36,0.78)',
+                    border: '1px solid rgba(148,163,184,0.16)',
+                    backdropFilter: 'blur(18px)',
                   }}
                 >
-                  PE
-                </Avatar>
+                  <Box sx={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: accentGradient }} />
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2.5 }}>
+                    <Box sx={{ position: 'relative', width: 76, height: 76, flexShrink: 0 }}>
+                      <Box
+                        aria-hidden="true"
+                        sx={{
+                          position: 'absolute',
+                          inset: -7,
+                          borderRadius: '50%',
+                          background: accentGradient,
+                          filter: 'blur(12px)',
+                          opacity: 0.55,
+                        }}
+                      />
+                      <Avatar
+                        sx={{
+                          width: 76,
+                          height: 76,
+                          fontSize: '1.55rem',
+                          fontWeight: 800,
+                          background: accentGradient,
+                          color: '#070B14',
+                          border: '2px solid rgba(255,255,255,0.14)',
+                          position: 'relative',
+                        }}
+                      >
+                        PE
+                      </Avatar>
+                    </Box>
+                    <Box>
+                      <Typography variant="h6" sx={{ fontWeight: 800, lineHeight: 1.2 }}>
+                        Prasannakumar E
+                      </Typography>
+                      <Typography variant="body2" sx={{ color: '#67E8F9', fontWeight: 600 }}>
+                        Full Stack Developer
+                      </Typography>
+                    </Box>
+                  </Box>
+
+                  <Chip
+                    size="small"
+                    label="Open to opportunities"
+                    sx={{
+                      mb: 2.5,
+                      fontWeight: 700,
+                      borderRadius: '999px',
+                      bgcolor: 'rgba(52,211,153,0.1)',
+                      color: '#6EE7B7',
+                      border: '1px solid rgba(52,211,153,0.24)',
+                    }}
+                  />
+                  <Divider sx={{ mb: 2, borderColor: 'rgba(148,163,184,0.14)' }} />
+                  {profileDetails.map((item) => (
+                    <Box key={item.text} sx={{ display: 'flex', alignItems: 'center', gap: 1.25, mb: 1.4 }}>
+                      <Box sx={{ color: '#67E8F9', display: 'flex', '& svg': { fontSize: 18 } }}>{item.icon}</Box>
+                      <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.88rem' }}>
+                        {item.text}
+                      </Typography>
+                    </Box>
+                  ))}
+                  <Button
+                    fullWidth
+                    variant="outlined"
+                    href="#contact"
+                    sx={{ mt: 2.5, borderColor: 'rgba(139,124,255,0.35)', color: '#E9D5FF' }}
+                  >
+                    Let's Connect
+                  </Button>
+                </Paper>
               </Box>
-              <Typography variant="subtitle1" sx={{ mt: 3, color: 'text.secondary', fontWeight: 600 }}>
-                Prasannakumar E
-              </Typography>
-              <Typography variant="caption" color="text.secondary">
-                @{GITHUB_USER} on GitHub
-              </Typography>
             </Grid>
           </Grid>
         </Container>
       </Box>
 
       {/* About */}
-      <Container maxWidth="lg" sx={{ py: 8 }} id="about">
-        <SectionHeader title="About Me" />
-        <Paper sx={{ ...skillCardSx, p: 4, maxWidth: 860, mx: 'auto' }}>
-          <Typography variant="body1" paragraph sx={{ fontSize: '1.08rem', color: 'text.secondary' }}>
-            Computer Science graduate with practical industry experience gained at Strio Kaizen Hi-Tech
-            Research Labs. I've worked across the full development lifecycle — designing user interfaces,
-            implementing backend logic, and integrating multiple APIs.
-          </Typography>
-          <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#a5b4fc', mt: 3, mb: 1.5 }}>
-            What I do best:
-          </Typography>
-          <Grid container spacing={1.5}>
-            {[
-              'Building reusable React components',
-              'Designing RESTful APIs with Node.js & Express',
-              'Working with SQL and NoSQL databases',
-              'Translating business workflows into working software',
-            ].map((item) => (
-              <Grid item xs={12} sm={6} key={item}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <Box sx={{ width: 8, height: 8, borderRadius: '50%', background: 'linear-gradient(90deg,#6366f1,#22d3ee)', flexShrink: 0 }} />
-                  <Typography variant="body2" color="text.secondary">{item}</Typography>
-                </Box>
-              </Grid>
-            ))}
+      <Container maxWidth="lg" sx={{ py: { xs: 7, md: 9 }, id: 'about' }}>
+        <SectionHeader eyebrow="01 · Profile" title="About Me" subtitle="A quick look at my background, working style, and the kind of products I enjoy building." />
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={5}>
+            <Paper sx={{ ...cardSx, p: { xs: 3, md: 4 }, height: '100%' }} elevation={0}>
+              <Typography variant="overline" sx={{ color: '#67E8F9', fontWeight: 700, letterSpacing: '0.16em' }}>
+                Professional Summary
+              </Typography>
+              <Typography
+                variant="h4"
+                sx={{ ...gradientTextSx, fontWeight: 800, fontSize: { xs: '1.8rem', md: '2.15rem' }, lineHeight: 1.18, my: 2 }}
+              >
+                Clean code, thoughtful UX, and reliable systems.
+              </Typography>
+              <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.75, flexGrow: 1 }}>
+                Computer Science graduate with practical industry experience gained at Strio Kaizen Hi-Tech
+                Research Labs. I've worked across the full development lifecycle — designing user interfaces,
+                implementing backend logic, and integrating multiple APIs.
+              </Typography>
+              <Chip
+                label="Strio Kaizen Hi-Tech Research Labs • Nov 2024 – Present"
+                sx={{ mt: 3, fontWeight: 700, borderRadius: '999px', bgcolor: 'rgba(139,124,255,0.12)', color: '#C4B5FD', border: '1px solid rgba(139,124,255,0.24)' }}
+              />
+            </Paper>
           </Grid>
-          <Divider sx={{ my: 3, borderColor: 'rgba(255,255,255,0.08)' }} />
-          <Typography variant="body1" sx={{ color: 'text.secondary' }}>
-            Continuously learning and improving by building real-world projects and writing clean,
-            maintainable code.
-          </Typography>
-        </Paper>
+          <Grid item xs={12} md={7}>
+            <Paper sx={{ ...skillCardSx, p: { xs: 3, md: 4 }, height: '100%' }} elevation={0}>
+              <Typography variant="h5" sx={{ fontWeight: 800, mb: 1 }}>
+                What I do best
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 3, lineHeight: 1.7 }}>
+                Translating business workflows into working software, with an emphasis on reusable components,
+                maintainable APIs, and responsive interfaces.
+              </Typography>
+              <Grid container spacing={1.5}>
+                {[
+                  'Building reusable React components',
+                  'Designing RESTful APIs with Node.js & Express',
+                  'Working with SQL and NoSQL databases',
+                  'Translating business workflows into working software',
+                ].map((item) => (
+                  <Grid item xs={12} sm={6} key={item}>
+                    <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+                      <Box sx={{ width: 8, height: 8, borderRadius: '50%', background: accentGradient, flexShrink: 0, mt: '7px' }} />
+                      <Typography variant="body2" color="text.secondary">{item}</Typography>
+                    </Box>
+                  </Grid>
+                ))}
+              </Grid>
+              <Divider sx={{ my: 3, borderColor: 'rgba(148,163,184,0.14)' }} />
+              <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                Continuously learning and improving by building real-world projects and writing clean,
+                maintainable code.
+              </Typography>
+            </Paper>
+          </Grid>
+        </Grid>
       </Container>
 
       {/* Skills */}
-      <Container maxWidth="lg" sx={{ py: 8 }} id="skills">
-        <SectionHeader title="Technical Skills" subtitle="The technologies and tools I work with every day." />
+      <Container maxWidth="lg" sx={{ py: { xs: 7, md: 9 }, id: 'skills' }}>
+        <SectionHeader eyebrow="02 · Stack" title="Technical Skills" subtitle="The technologies and tools I use to design, build, and ship modern web applications." />
         <Grid container spacing={3}>
           {[
-            { title: 'Languages', icon: <Code sx={{ fontSize: 28, color: '#a5b4fc' }} />, items: technicalSkills.languages, wide: false },
-            { title: 'Frontend', icon: <Dashboard sx={{ fontSize: 28, color: '#67e8f9' }} />, items: technicalSkills.frontend, wide: false },
-            { title: 'Backend', icon: <Api sx={{ fontSize: 28, color: '#a5b4fc' }} />, items: technicalSkills.backend, wide: false },
-            { title: 'Databases', icon: <Storage sx={{ fontSize: 28, color: '#67e8f9' }} />, items: technicalSkills.databases, wide: false },
-            { title: 'Tools & Concepts', icon: <Build sx={{ fontSize: 28, color: '#f0abfc' }} />, items: technicalSkills.tools, wide: true },
+            { title: 'Languages', icon: <Code />, items: technicalSkills.languages, wide: false },
+            { title: 'Frontend', icon: <Web />, items: technicalSkills.frontend, wide: false },
+            { title: 'Backend', icon: <Api />, items: technicalSkills.backend, wide: false },
+            { title: 'Databases', icon: <Storage />, items: technicalSkills.databases, wide: false },
+            { title: 'Tools & Concepts', icon: <Build />, items: technicalSkills.tools, wide: true },
           ].map((group) => (
             <Grid item xs={12} md={group.wide ? 12 : 6} key={group.title}>
-              <Paper sx={skillCardSx}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2 }}>
-                  {group.icon}
-                  <Typography variant="h6" sx={{ fontWeight: 700 }}>{group.title}</Typography>
+              <Paper sx={skillCardSx} elevation={0}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2.5 }}>
+                  <Box
+                    sx={{
+                      width: 48,
+                      height: 48,
+                      borderRadius: '15px',
+                      display: 'grid',
+                      placeItems: 'center',
+                      color: '#C4B5FD',
+                      bgcolor: 'rgba(139,124,255,0.13)',
+                      border: '1px solid rgba(139,124,255,0.22)',
+                      flexShrink: 0,
+                    }}
+                  >
+                    {React.cloneElement(group.icon, { sx: { fontSize: 25 } })}
+                  </Box>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>{group.title}</Typography>
                 </Box>
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                   {group.items.map((skill) => (
@@ -610,37 +744,37 @@ const Portfolio = () => {
       </Container>
 
       {/* Experience */}
-      <Container maxWidth="lg" sx={{ py: 8 }} id="experience">
-        <SectionHeader title="Experience" />
+      <Container maxWidth="lg" sx={{ py: { xs: 7, md: 9 }, id: 'experience' }}>
+        <SectionHeader eyebrow="03 · Experience" title="Work Experience" />
         <Grid container spacing={4} justifyContent="center">
           {experience.map((exp, index) => (
             <Grid item xs={12} md={10} key={index}>
-              <Card sx={{ ...cardSx, p: 0 }}>
-                <CardContent sx={{ p: 4 }}>
-                  <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2, mb: 2 }}>
-                    <Avatar sx={{ bgcolor: 'rgba(99,102,241,0.2)', color: '#a5b4fc' }}>
+              <Card sx={{ ...cardSx, p: 0 }} elevation={0}>
+                <CardContent sx={{ p: { xs: 3, md: 4 } }}>
+                  <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2, mb: 3 }}>
+                    <Avatar sx={{ bgcolor: 'rgba(34,211,238,0.12)', color: '#67E8F9', width: 52, height: 52, borderRadius: '16px' }}>
                       <Work />
                     </Avatar>
                     <Box sx={{ flex: 1 }}>
-                      <Typography variant="h5" sx={{ fontWeight: 700 }}>{exp.title}</Typography>
-                      <Typography variant="h6" sx={{ color: '#a5b4fc', fontWeight: 600 }}>{exp.company}</Typography>
+                      <Typography variant="h5" sx={{ fontWeight: 800 }}>{exp.title}</Typography>
+                      <Typography variant="h6" sx={{ color: '#67E8F9', fontWeight: 700 }}>{exp.company}</Typography>
                       <Chip
                         size="small"
                         label={`${exp.period} • ${exp.type}`}
-                        sx={{ mt: 1, bgcolor: 'rgba(34,211,238,0.1)', color: '#67e8f9', border: '1px solid rgba(34,211,238,0.25)', fontWeight: 600 }}
+                        sx={{ mt: 1.25, fontWeight: 700, borderRadius: '999px', bgcolor: 'rgba(34,211,238,0.1)', color: '#67E8F9', border: '1px solid rgba(34,211,238,0.24)' }}
                       />
                     </Box>
                   </Box>
-                  <List dense>
-                    {exp.description.map((desc, i) => (
-                      <ListItem key={i} sx={{ py: 0.4, px: 0 }}>
-                        <ListItemText
-                          primary={desc}
-                          primaryTypographyProps={{ variant: 'body2', sx: { color: 'text.secondary' } }}
-                        />
-                      </ListItem>
+                  <Box>
+                    {exp.description.map((desc) => (
+                      <Box key={desc} sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.25, py: 0.55 }}>
+                        <Box sx={{ width: 7, height: 7, borderRadius: '50%', bgcolor: '#67E8F9', mt: '8px', flexShrink: 0 }} />
+                        <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.65 }}>
+                          {desc}
+                        </Typography>
+                      </Box>
                     ))}
-                  </List>
+                  </Box>
                 </CardContent>
               </Card>
             </Grid>
@@ -649,10 +783,11 @@ const Portfolio = () => {
       </Container>
 
       {/* Projects */}
-      <Container maxWidth="lg" sx={{ py: 8 }} id="projects">
+      <Container maxWidth="lg" sx={{ py: { xs: 7, md: 9 }, id: 'projects' }}>
         <SectionHeader
+          eyebrow="04 · Selected Work"
           title="Projects & Repositories"
-          subtitle={`A collection of my GitHub repositories. Click "Setup" on any card for installation instructions.`}
+          subtitle="A collection of my GitHub repositories and production-focused applications."
         />
         <Grid container spacing={3}>
           {projects.map((project) => (
@@ -664,28 +799,28 @@ const Portfolio = () => {
       </Container>
 
       {/* Education */}
-      <Container maxWidth="lg" sx={{ py: 8 }} id="education">
-        <SectionHeader title="Education" />
-        <Grid container spacing={4} justifyContent="center">
+      <Container maxWidth="lg" sx={{ py: { xs: 7, md: 9 }, id: 'education' }}>
+        <SectionHeader eyebrow="05 · Education" title="Education" />
+        <Grid container spacing={3} justifyContent="center">
           {education.map((edu, index) => (
             <Grid item xs={12} md={4} key={index}>
-              <Card sx={cardSx}>
+              <Card sx={cardSx} elevation={0}>
                 <CardContent>
                   <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5, mb: 1.5 }}>
-                    <Avatar sx={{ bgcolor: 'rgba(236,72,153,0.15)', color: '#f9a8d4' }}>
+                    <Avatar sx={{ bgcolor: 'rgba(34,211,238,0.12)', color: '#67E8F9', borderRadius: '14px' }}>
                       <School />
                     </Avatar>
                     <Box>
-                      <Typography variant="h6" sx={{ fontWeight: 700, fontSize: '1rem' }}>{edu.degree}</Typography>
+                      <Typography variant="h6" sx={{ fontWeight: 800, fontSize: '1rem', lineHeight: 1.35 }}>{edu.degree}</Typography>
                       <Typography variant="body2" color="text.secondary">{edu.institution}</Typography>
                       {edu.period && <Typography variant="body2" color="text.secondary">{edu.period}</Typography>}
                     </Box>
                   </Box>
                   {edu.cgpa && (
-                    <Chip label={`CGPA: ${edu.cgpa}`} size="small" sx={{ mt: 1, bgcolor: 'rgba(129,140,248,0.12)', color: '#a5b4fc', border: '1px solid rgba(129,140,248,0.3)', fontWeight: 600 }} />
+                    <Chip label={`CGPA: ${edu.cgpa}`} size="small" sx={{ ...skillChipSx, mt: 1 }} />
                   )}
                   {edu.percentage && (
-                    <Chip label={`Percentage: ${edu.percentage}`} size="small" sx={{ mt: 1, ml: edu.cgpa ? 1 : 0, bgcolor: 'rgba(129,140,248,0.12)', color: '#a5b4fc', border: '1px solid rgba(129,140,248,0.3)', fontWeight: 600 }} />
+                    <Chip label={`Percentage: ${edu.percentage}`} size="small" sx={{ ...skillChipSx, mt: 1, ml: edu.cgpa ? 1 : 0 }} />
                   )}
                 </CardContent>
               </Card>
@@ -695,27 +830,30 @@ const Portfolio = () => {
       </Container>
 
       {/* Contact */}
-      <Container maxWidth="lg" sx={{ py: 8 }} id="contact">
-        <SectionHeader title="Get In Touch" />
+      <Container maxWidth="lg" sx={{ py: { xs: 7, md: 9 }, id: 'contact' }}>
+        <SectionHeader eyebrow="06 · Contact" title="Get In Touch" subtitle="Have a project, role, or collaboration in mind? I'd love to hear from you." />
         <Grid container spacing={3} justifyContent="center">
           {[
             { icon: <Email />, label: 'Email', value: 'espprasanna613@gmail.com', href: 'mailto:espprasanna613@gmail.com' },
             { icon: <Phone />, label: 'Phone', value: '+91 90033 81176', href: 'tel:+919003381176' },
-            { icon: <LinkedIn />, label: 'LinkedIn', value: 'linkedin.com/in/prasannakumar', href: 'https://linkedin.com/in/prasannakumar' },
-            { icon: <GitHub />, label: 'GitHub', value: `github.com/${GITHUB_USER}`, href: repoUrl('').replace(/\/$/, '') },
+            { icon: <LinkedIn />, label: 'LinkedIn', value: 'linkedin.com/in/prasanna-kumar-e-4b370a253', href: 'https://www.linkedin.com/in/prasanna-kumar-e-4b370a253' },
+            { icon: <GitHub />, label: 'GitHub', value: `github.com/${GITHUB_USER}`, href: `https://github.com/${GITHUB_USER}` },
           ].map((item) => (
             <Grid item xs={12} sm={6} md={3} key={item.label}>
               <Card
-                component={item.href ? 'a' : 'div'}
+                component="a"
                 href={item.href}
                 target={item.href?.startsWith('http') ? '_blank' : undefined}
                 rel="noopener noreferrer"
                 sx={{ ...cardSx, textDecoration: 'none', color: 'inherit', p: 0 }}
+                elevation={0}
               >
-                <CardContent sx={{ textAlign: 'center', py: 3 }}>
-                  <Avatar sx={{ mx: 'auto', mb: 1.5, bgcolor: 'rgba(99,102,241,0.2)', color: '#a5b4fc' }}>{item.icon}</Avatar>
+                <CardContent sx={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'center', py: 3.5 }}>
+                  <Avatar sx={{ mx: 'auto', mb: 1.5, width: 50, height: 50, borderRadius: '16px', bgcolor: 'rgba(34,211,238,0.12)', color: '#67E8F9' }}>
+                    {item.icon}
+                  </Avatar>
                   <Typography variant="subtitle2" color="text.secondary">{item.label}</Typography>
-                  <Typography variant="body2" sx={{ fontWeight: 600, wordBreak: 'break-all' }}>{item.value}</Typography>
+                  <Typography variant="body2" sx={{ fontWeight: 700, wordBreak: 'break-all' }}>{item.value}</Typography>
                 </CardContent>
               </Card>
             </Grid>
@@ -724,20 +862,36 @@ const Portfolio = () => {
       </Container>
 
       {/* CTA */}
-      <Container maxWidth="lg" sx={{ py: 6, mb: 6 }}>
+      <Container maxWidth="lg" sx={{ py: { xs: 5, md: 7 }, mb: { xs: 5, md: 7 } }}>
         <Paper
+          elevation={0}
           sx={{
+            position: 'relative',
+            overflow: 'hidden',
             p: { xs: 4, md: 6 },
             textAlign: 'center',
-            borderRadius: 4,
-            background: 'linear-gradient(135deg, rgba(99,102,241,0.25), rgba(34,211,238,0.15))',
-            border: '1px solid rgba(129,140,248,0.3)',
+            borderRadius: '28px',
+            background: 'linear-gradient(135deg, rgba(139,124,255,0.18), rgba(34,211,238,0.1))',
+            border: '1px solid rgba(139,124,255,0.25)',
           }}
         >
-          <Typography variant="h4" sx={{ fontWeight: 800, mb: 1.5 }}>
+          <Box
+            aria-hidden="true"
+            sx={{
+              position: 'absolute',
+              width: 280,
+              height: 280,
+              right: -100,
+              top: -120,
+              borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(34,211,238,0.18), transparent 68%)',
+              filter: 'blur(8px)',
+            }}
+          />
+          <Typography variant="h3" sx={{ ...gradientTextSx, fontWeight: 800, mb: 1.5, position: 'relative' }}>
             I'm actively looking for opportunities
           </Typography>
-          <Typography variant="h6" color="text.secondary" sx={{ mb: 3, fontWeight: 400 }}>
+          <Typography variant="h6" color="text.secondary" sx={{ mb: 3, fontWeight: 500, position: 'relative' }}>
             as a Full Stack Developer / React Developer where I can contribute to building
             scalable products and continue growing as a software engineer.
           </Typography>
@@ -747,14 +901,22 @@ const Portfolio = () => {
             href="#contact"
             sx={{
               px: 5,
-              background: 'linear-gradient(90deg, #6366f1, #22d3ee)',
-              '&:hover': { background: 'linear-gradient(90deg, #4f46e5, #06b6d4)' },
+              position: 'relative',
+              background: accentGradient,
+              color: '#070B14',
+              '&:hover': { background: 'linear-gradient(135deg, #9D8FFF, #38E1F2)', transform: 'translateY(-2px)' },
             }}
           >
             Let's Work Together
           </Button>
         </Paper>
       </Container>
+
+      <Box sx={{ borderTop: '1px solid rgba(148,163,184,0.12)', py: 3, textAlign: 'center' }}>
+        <Typography variant="body2" color="text.secondary">
+          © {new Date().getFullYear()} Prasannakumar E · Built with React & Material UI
+        </Typography>
+      </Box>
     </Box>
   );
 };

@@ -1,55 +1,57 @@
 import React, { useState, useEffect } from 'react';
 import {
   Box,
-  CssBaseline,
-  Drawer,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
+  Button,
+  Container,
+  IconButton,
+  Menu,
+  MenuItem,
   Typography,
 } from '@mui/material';
 import {
+  Code,
   Home,
   Person,
-  Code,
   Build,
   School,
   Work,
   Mail,
+  Menu as MenuIcon,
 } from '@mui/icons-material';
 
-const drawerWidth = 240;
+const accentGradient = 'linear-gradient(135deg, #8B7CFF 0%, #22D3EE 100%)';
 
 const PortfolioLayout = ({ children }) => {
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [menuAnchor, setMenuAnchor] = useState(null);
   const [activeSection, setActiveSection] = useState('home');
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       setActiveSection(sectionId);
-      setMobileOpen(false); // Close mobile drawer after navigation
     }
+    setMenuAnchor(null);
   };
 
-  // Update active section based on scroll position
+  const handleMenuOpen = (event) => {
+    setMenuAnchor(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setMenuAnchor(null);
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       const sections = ['home', 'about', 'skills', 'experience', 'projects', 'education', 'contact'];
-      const scrollPosition = window.scrollY + 100;
+      const marker = 140;
 
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
-          const { offsetTop, offsetHeight } = element;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= marker && rect.bottom > marker) {
             setActiveSection(section);
             break;
           }
@@ -58,87 +60,166 @@ const PortfolioLayout = ({ children }) => {
     };
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Check initial position
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const menuItems = [
-    { text: 'Home', icon: React.createElement(Home), id: 'home' },
-    { text: 'About', icon: React.createElement(Person), id: 'about' },
-    { text: 'Skills', icon: React.createElement(Build), id: 'skills' },
-    { text: 'Experience', icon: React.createElement(Work), id: 'experience' },
-    { text: 'Projects', icon: React.createElement(Code), id: 'projects' },
-    { text: 'Education', icon: React.createElement(School), id: 'education' },
-    { text: 'Contact', icon: React.createElement(Mail), id: 'contact' },
+    { text: 'Home', icon: <Home />, id: 'home' },
+    { text: 'About', icon: <Person />, id: 'about' },
+    { text: 'Skills', icon: <Build />, id: 'skills' },
+    { text: 'Experience', icon: <Work />, id: 'experience' },
+    { text: 'Projects', icon: <Code />, id: 'projects' },
+    { text: 'Education', icon: <School />, id: 'education' },
+    { text: 'Contact', icon: <Mail />, id: 'contact' },
   ];
 
-  const drawer = React.createElement(
-    'div',
-    null,
-    React.createElement(
-      Typography,
-      { variant: 'h6', noWrap: true, component: 'div', sx: { p: 2 } },
-      'Portfolio'
-    ),
-    React.createElement(
-      List,
-      null,
-      menuItems.map((item) =>
-        React.createElement(
-          ListItem,
-          { key: item.text, disablePadding: true },
-          React.createElement(ListItemButton, {
-            selected: activeSection === item.id,
-            onClick: () => scrollToSection(item.id),
-            children: [
-              React.createElement(ListItemIcon, { children: item.icon }),
-              React.createElement(ListItemText, { primary: item.text }),
-            ],
-          })
-        )
-      )
-    )
-  );
+  const navButtonSx = (active) => ({
+    px: 1.75,
+    py: 0.85,
+    borderRadius: '999px',
+    color: active ? '#E9D5FF' : 'text.secondary',
+    bgcolor: active ? 'rgba(139,124,255,0.14)' : 'transparent',
+    fontWeight: 700,
+    '&:hover': {
+      color: '#F5F3FF',
+      bgcolor: 'rgba(139,124,255,0.12)',
+    },
+  });
 
-  return React.createElement(
-    Box,
-    { sx: { display: 'flex' } },
-    React.createElement(CssBaseline),
-    React.createElement(Box, {
-      component: 'nav',
-      sx: { width: { sm: drawerWidth }, flexShrink: { sm: 0 } },
-      'aria-label': 'mailbox folders',
-      children: [
-        React.createElement(Drawer, {
-          variant: 'temporary',
-          open: mobileOpen,
-          onClose: handleDrawerToggle,
-          ModalProps: { keepMounted: true },
-          sx: {
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+  return (
+    <>
+      <Box
+        component="header"
+        sx={{
+          position: 'sticky',
+          top: 0,
+          zIndex: 1200,
+          backdropFilter: 'blur(18px)',
+          WebkitBackdropFilter: 'blur(18px)',
+          bgcolor: 'rgba(7,11,20,0.76)',
+          borderBottom: '1px solid rgba(148,163,184,0.12)',
+        }}
+      >
+        <Container maxWidth="lg" sx={{ px: { xs: 2, md: 3 } }}>
+          <Box sx={{ height: { xs: 68, md: 76 }, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 2 }}>
+            <Box
+              component="button"
+              type="button"
+              onClick={() => scrollToSection('home')}
+              aria-label="Go to portfolio home"
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1.25,
+                border: 0,
+                p: 0,
+                bgcolor: 'transparent',
+                color: 'inherit',
+                cursor: 'pointer',
+                textAlign: 'left',
+              }}
+            >
+              <Box
+                sx={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: '13px',
+                  display: 'grid',
+                  placeItems: 'center',
+                  color: '#070B14',
+                  background: accentGradient,
+                  boxShadow: '0 8px 24px rgba(99,102,241,0.28)',
+                }}
+              >
+                <Code sx={{ fontSize: 21 }} />
+              </Box>
+              <Box>
+                <Typography variant="subtitle1" sx={{ fontWeight: 800, lineHeight: 1.15, fontSize: '0.98rem' }}>
+                  Prasannakumar
+                </Typography>
+                <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600 }}>
+                  Full Stack Developer
+                </Typography>
+              </Box>
+            </Box>
+
+            <Box component="nav" aria-label="Portfolio sections" sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 0.5 }}>
+              {menuItems.map((item) => (
+                <Button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  sx={navButtonSx(activeSection === item.id)}
+                >
+                  {item.text}
+                </Button>
+              ))}
+            </Box>
+
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Button
+                variant="contained"
+                size="small"
+                onClick={() => scrollToSection('contact')}
+                sx={{
+                  display: { xs: 'none', sm: 'inline-flex' },
+                  px: 2.5,
+                  background: accentGradient,
+                  color: '#070B14',
+                  '&:hover': { background: 'linear-gradient(135deg, #9D8FFF, #38E1F2)' },
+                }}
+              >
+                Let's Talk
+              </Button>
+              <IconButton
+                aria-label="Open navigation menu"
+                onClick={handleMenuOpen}
+                sx={{ display: { xs: 'inline-flex', md: 'none' }, color: 'text.primary' }}
+              >
+                <MenuIcon />
+              </IconButton>
+            </Box>
+          </Box>
+        </Container>
+      </Box>
+
+      <Box component="main">{children}</Box>
+
+      <Menu
+        anchorEl={menuAnchor}
+        open={Boolean(menuAnchor)}
+        onClose={handleMenuClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        slotProps={{
+          paper: {
+            sx: {
+              mt: 1,
+              minWidth: 230,
+              bgcolor: '#0D1424',
+              backgroundImage: 'none',
+              border: '1px solid rgba(148,163,184,0.16)',
+              borderRadius: '16px',
+              boxShadow: '0 20px 60px rgba(2,6,23,0.5)',
+            },
           },
-          children: drawer,
-        }),
-        React.createElement(Drawer, {
-          variant: 'permanent',
-          sx: {
-            display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-          },
-          open: true,
-          children: drawer,
-        }),
-      ],
-    }),
-    React.createElement(Box, {
-      component: 'main',
-      sx: {
-        flexGrow: 1,
-        width: { sm: `calc(100% - ${drawerWidth}px)` },
-      },
-      children: children,
-    })
+        }}
+      >
+        {menuItems.map((item) => (
+          <MenuItem
+            key={item.id}
+            selected={activeSection === item.id}
+            onClick={() => scrollToSection(item.id)}
+            sx={{ mx: 1, my: 0.25, borderRadius: '10px' }}
+          >
+            <Box component="span" sx={{ mr: 1.5, display: 'inline-flex', color: activeSection === item.id ? '#67E8F9' : 'text.secondary' }}>
+              {item.icon}
+            </Box>
+            {item.text}
+          </MenuItem>
+        ))}
+      </Menu>
+    </>
   );
 };
 
