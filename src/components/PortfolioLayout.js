@@ -17,6 +17,7 @@ import {
   Work,
   Mail,
   Menu as MenuIcon,
+  Close as CloseIcon,
 } from '@mui/icons-material';
 
 const accentGradient = 'linear-gradient(135deg, #8B7CFF 0%, #22D3EE 100%)';
@@ -46,22 +47,26 @@ const PortfolioLayout = ({ children }) => {
     const handleScroll = () => {
       const sections = ['home', 'about', 'skills', 'experience', 'projects', 'education', 'contact'];
       const marker = 140;
+      let currentSection = sections[0];
 
       for (const section of sections) {
         const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= marker && rect.bottom > marker) {
-            setActiveSection(section);
-            break;
-          }
+        if (!element || element.getBoundingClientRect().top > marker) {
+          break;
         }
+        currentSection = section;
       }
+
+      setActiveSection((current) => current === currentSection ? current : currentSection);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll);
     handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
   }, []);
 
   const menuItems = [
@@ -144,11 +149,12 @@ const PortfolioLayout = ({ children }) => {
               </Box>
             </Box>
 
-            <Box component="nav" aria-label="Portfolio sections" sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 0.5 }}>
+            <Box component="nav" aria-label="Portfolio sections" sx={{ display: { xs: 'none', lg: 'flex' }, alignItems: 'center', gap: 0.5 }}>
               {menuItems.map((item) => (
                 <Button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
+                  aria-current={activeSection === item.id ? 'location' : undefined}
                   sx={navButtonSx(activeSection === item.id)}
                 >
                   {item.text}
@@ -172,11 +178,13 @@ const PortfolioLayout = ({ children }) => {
                 Let's Talk
               </Button>
               <IconButton
-                aria-label="Open navigation menu"
-                onClick={handleMenuOpen}
-                sx={{ display: { xs: 'inline-flex', md: 'none' }, color: 'text.primary' }}
+                aria-label={menuAnchor ? 'Close navigation menu' : 'Open navigation menu'}
+                aria-expanded={Boolean(menuAnchor)}
+                aria-controls="portfolio-navigation-menu"
+                onClick={menuAnchor ? handleMenuClose : handleMenuOpen}
+                sx={{ display: { xs: 'inline-flex', lg: 'none' }, color: 'text.primary' }}
               >
-                <MenuIcon />
+                {menuAnchor ? <CloseIcon /> : <MenuIcon />}
               </IconButton>
             </Box>
           </Box>
@@ -186,6 +194,7 @@ const PortfolioLayout = ({ children }) => {
       <Box component="main">{children}</Box>
 
       <Menu
+        id="portfolio-navigation-menu"
         anchorEl={menuAnchor}
         open={Boolean(menuAnchor)}
         onClose={handleMenuClose}
