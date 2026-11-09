@@ -156,11 +156,13 @@ const education = [
 
 const accentGradient = 'linear-gradient(135deg, #8B7CFF 0%, #22D3EE 100%)';
 const gradientTextSx = {
-  background: 'linear-gradient(90deg, #F8FAFC 0%, #C4B5FD 52%, #67E8F9 100%)',
-  WebkitBackgroundClip: 'text',
-  backgroundClip: 'text',
-  color: 'transparent',
-  WebkitTextFillColor: 'transparent',
+  color: '#F8FAFC',
+  '@supports (background-clip: text)': {
+    background: 'linear-gradient(90deg, #F8FAFC 0%, #C4B5FD 52%, #67E8F9 100%)',
+    WebkitBackgroundClip: 'text',
+    backgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+  },
 };
 
 const sectionTitleSx = {
@@ -178,7 +180,11 @@ const cardSx = {
   flexDirection: 'column',
   overflow: 'hidden',
   bgcolor: 'rgba(15,23,42,0.72)',
+  color: '#F8FAFC',
   backgroundImage: 'linear-gradient(145deg, rgba(255,255,255,0.055), rgba(255,255,255,0.015))',
+  '& .MuiTypography-colorTextSecondary': {
+    color: '#CBD5E1',
+  },
   border: '1px solid rgba(148,163,184,0.16)',
   borderRadius: '24px',
   boxShadow: '0 12px 36px rgba(2,6,23,0.18)',
