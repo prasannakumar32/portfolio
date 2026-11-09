@@ -199,7 +199,7 @@ const cardSx = {
     top: 0,
     left: 0,
     right: 0,
-    height: 1,
+    height: '1px',
     background: accentGradient,
     opacity: 0.65,
   },
