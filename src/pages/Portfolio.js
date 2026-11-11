@@ -35,25 +35,45 @@ const repoUrl = (name) => `https://github.com/${GITHUB_USER}/${name}`;
 
 const technicalSkills = {
   languages: ['JavaScript', 'Python'],
-  frontend: ['React.js', 'HTML5', 'CSS3', 'Bootstrap', 'Material UI'],
+  frontend: ['React.js', 'SharePoint', 'SPFx', 'Power Apps', 'HTML5', 'CSS3', 'Bootstrap', 'Material UI'],
   backend: ['Node.js', 'Express.js', 'REST APIs'],
-  databases: ['MySQL', 'DynamoDB', 'MongoDB'],
-  tools: ['Git', 'GitHub', 'Postman', 'VS Code', 'MVC Architecture', 'CRUD Operations', 'Authentication'],
+  databases: ['MySQL', 'DynamoDB', 'MongoDB', 'Supabase'],
+  tools: ['Power Automate', 'Sequelize', 'Data Structures', 'DBMS', 'Git', 'GitHub', 'Postman', 'VS Code', 'MVC Architecture', 'CRUD Operations', 'Authentication'],
 };
 
 const experience = [
   {
-    title: 'Full Stack Developer',
-    company: 'Strio Kaizen Hi-Tech Research Labs',
-    period: 'Nov 2024 – Present',
-    type: 'Remote',
+    title: 'Junior Developer',
+    company: 'TMARK Techs Pty Ltd',
+    period: 'Mar 2026 – Present',
+    type: 'Full-time · Remote · India',
     description: [
-      'Developed reusable and scalable React.js components used across multiple application modules.',
-      'Designed and integrated 6+ RESTful APIs using Node.js and Express.js.',
-      'Implemented production and consumption allocation logic processing 10,000+ records.',
-      'Worked with DynamoDB for managing large-scale NoSQL datasets.',
-      'Optimized API performance and frontend rendering, improving load times by ~20%.',
-      'Collaborated in an agile development environment with real-world business requirements.',
+      'Customize SharePoint sites and build forms using Power Apps.',
+      'Perform CRUD operations with SharePoint lists.',
+      'Contribute to integrating React applications with SharePoint.',
+    ],
+  },
+  {
+    title: 'Full-stack Developer',
+    company: 'STRIO Kaizen HiTech Research Labs',
+    period: 'Feb 2025 – Jan 2026',
+    type: 'Full-time · Remote · Namakkal, Tamil Nadu',
+    description: [
+      'Developed full-stack web applications using React.js and Node.js to improve user experience.',
+      'Created and maintained REST APIs for communication between frontend and backend systems.',
+      'Managed NoSQL databases for efficient data storage and retrieval.',
+      'Collaborated with cross-functional teams to deliver scalable solutions in a fast-paced startup environment.',
+    ],
+  },
+  {
+    title: 'Full Stack Developer Intern',
+    company: 'STRIO Kaizen HiTech Research Labs',
+    period: 'Nov 2024 – Feb 2025',
+    type: 'Internship · Remote · Namakkal, Tamil Nadu',
+    description: [
+      'Developed web applications using React, Node.js, and REST APIs.',
+      'Used NoSQL Workbench and DynamoDB Local to work with scalable backend solutions.',
+      'Participated in code reviews and agile sprints.',
     ],
   },
 ];
@@ -155,6 +175,16 @@ const education = [
     institution: 'Surabi Matric School',
     period: '',
     percentage: '83.4%',
+  },
+];
+
+const certifications = [
+  {
+    name: 'Game Development Using Pygame',
+    issuer: 'HCL GUVI',
+    issued: 'Sep 2023',
+    expires: 'Dec 2036',
+    credentialId: '33B192056R9d603VoL',
   },
 ];
 
@@ -678,17 +708,18 @@ const Portfolio = () => {
                 Clean code, thoughtful UX, and reliable systems.
               </Typography>
               <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.75, flexGrow: 1 }}>
-                Full Stack Developer at T-Mark Techs with hands-on experience developing and maintaining web
-                applications, building RESTful APIs, and automating business processes. Skilled in React.js,
-                JavaScript, Node.js, Express.js, SharePoint, SPFx, Power Automate, and Supabase. Experienced in
-                SharePoint solutions, CRUD operations, third-party API integrations, and workflow automation.
-                I have also worked on real-time transport and car parking availability systems, including data
-                synchronization, backend APIs, and database management. Familiar with VPS deployment, server
-                configuration, and application maintenance, and passionate about building scalable, efficient,
-                user-friendly software.
+                Aspiring Full Stack Developer with experience building modern web applications using React.js
+                and Node.js, with hands-on work in DynamoDB, SharePoint, and Power Apps. At TMARK Techs, I
+                customize SharePoint sites, build Power Apps forms, perform CRUD operations with SharePoint
+                lists, and contribute to React–SharePoint integrations. Previously, I developed full-stack
+                applications and REST APIs at STRIO Kaizen HiTech Research Labs, worked with NoSQL databases,
+                and collaborated in agile teams. My experience also includes workflow automation, third-party
+                API integrations, and real-time transport and parking availability systems. I have a strong
+                foundation in data structures, database management, and backend integration, and am open to
+                full-time opportunities.
               </Typography>
               <Chip
-                label="Strio Kaizen Hi-Tech Research Labs • Nov 2024 – Present"
+                label="Junior Developer · TMARK Techs Pty Ltd · Mar 2026 – Present"
                 sx={{ mt: 3, fontWeight: 700, borderRadius: '999px', bgcolor: 'rgba(139,124,255,0.12)', color: '#C4B5FD', border: '1px solid rgba(139,124,255,0.24)' }}
               />
             </Paper>
@@ -855,14 +886,44 @@ const Portfolio = () => {
         </Grid>
       </Container>
 
+      {/* Certifications */}
+      <Container id="certifications" maxWidth="lg" sx={{ py: { xs: 7, md: 9 } }}>
+        <SectionHeader eyebrow="06 · Certifications" title="Licenses & Certifications" />
+        <Grid container spacing={3} justifyContent="center">
+          {certifications.map((certification) => (
+            <Grid item xs={12} sm={8} md={6} key={certification.credentialId}>
+              <Card sx={cardSx} elevation={0}>
+                <CardContent>
+                  <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5, mb: 2 }}>
+                    <Avatar sx={{ bgcolor: 'rgba(34,211,238,0.12)', color: '#67E8F9', borderRadius: '14px' }}>
+                      <School />
+                    </Avatar>
+                    <Box>
+                      <Typography variant="h6" sx={{ fontWeight: 800 }}>{certification.name}</Typography>
+                      <Typography variant="body2" color="text.secondary">{certification.issuer}</Typography>
+                    </Box>
+                  </Box>
+                  <Typography variant="body2" color="text.secondary">
+                    Issued {certification.issued} · Expires {certification.expires}
+                  </Typography>
+                  <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 1 }}>
+                    Credential ID: {certification.credentialId}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
+
       {/* Contact */}
       <Container id="contact" maxWidth="lg" sx={{ py: { xs: 7, md: 9 } }}>
-        <SectionHeader eyebrow="06 · Contact" title="Get In Touch" subtitle="Have a project, role, or collaboration in mind? I'd love to hear from you." />
+        <SectionHeader eyebrow="07 · Contact" title="Get In Touch" subtitle="Have a project, role, or collaboration in mind? I'd love to hear from you." />
         <Grid container spacing={3} justifyContent="center">
           {[
             { icon: <Email />, label: 'Email', value: 'espprasanna613@gmail.com', href: 'mailto:espprasanna613@gmail.com' },
             { icon: <Phone />, label: 'Phone', value: '+91 90033 81176', href: 'tel:+919003381176' },
-            { icon: <LinkedIn />, label: 'LinkedIn', value: 'linkedin.com/in/prasanna-kumar-e-4b370a253', href: 'https://www.linkedin.com/in/prasanna-kumar-e-4b370a253' },
+            { icon: <LinkedIn />, label: 'LinkedIn', value: 'linkedin.com/in/prasannakumar-cric', href: 'https://www.linkedin.com/in/prasannakumar-cric/' },
             { icon: <GitHub />, label: 'GitHub', value: `github.com/${GITHUB_USER}`, href: `https://github.com/${GITHUB_USER}` },
           ].map((item) => (
             <Grid item xs={12} sm={6} md={3} key={item.label}>

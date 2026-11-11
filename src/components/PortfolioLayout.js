@@ -14,6 +14,7 @@ import {
   Person,
   Build,
   School,
+  WorkspacePremium,
   Work,
   Mail,
   Menu as MenuIcon,
@@ -45,7 +46,7 @@ const PortfolioLayout = ({ children }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'skills', 'experience', 'projects', 'education', 'contact'];
+      const sections = ['home', 'about', 'skills', 'experience', 'projects', 'education', 'certifications', 'contact'];
       const marker = 140;
       let currentSection = sections[0];
 
@@ -76,6 +77,7 @@ const PortfolioLayout = ({ children }) => {
     { text: 'Experience', icon: <Work />, id: 'experience' },
     { text: 'Projects', icon: <Code />, id: 'projects' },
     { text: 'Education', icon: <School />, id: 'education' },
+    { text: 'Certifications', icon: <WorkspacePremium />, id: 'certifications' },
     { text: 'Contact', icon: <Mail />, id: 'contact' },
   ];
 
