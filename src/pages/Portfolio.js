@@ -436,7 +436,7 @@ const Portfolio = () => {
 
   const profileDetails = [
     { icon: <LocationOn />, text: 'Namakkal, Tamil Nadu, India' },
-    { icon: <Email />, text: 'espprasanna613@gmail.com', href: 'mailto:espprasanna613@gmail.com' },
+    { icon: <Email />, text: 'espprasanna613@gmail.com', href: 'https://mail.google.com/mail/?view=cm&fs=1&to=espprasanna613%40gmail.com' },
     { icon: <Phone />, text: '+91 90033 81176', href: 'tel:+919003381176' },
     { icon: <GitHub />, text: `@${GITHUB_USER} on GitHub`, href: `https://github.com/${GITHUB_USER}` },
   ];
@@ -921,7 +921,7 @@ const Portfolio = () => {
         <SectionHeader eyebrow="07 · Contact" title="Get In Touch" subtitle="Have a project, role, or collaboration in mind? I'd love to hear from you." />
         <Grid container spacing={3} justifyContent="center">
           {[
-            { icon: <Email />, label: 'Email', value: 'espprasanna613@gmail.com', href: 'mailto:espprasanna613@gmail.com' },
+            { icon: <Email />, label: 'Email', value: 'espprasanna613@gmail.com', href: 'https://mail.google.com/mail/?view=cm&fs=1&to=espprasanna613%40gmail.com' },
             { icon: <Phone />, label: 'Phone', value: '+91 90033 81176', href: 'tel:+919003381176' },
             { icon: <LinkedIn />, label: 'LinkedIn', value: 'linkedin.com/in/prasannakumar-cric', href: 'https://www.linkedin.com/in/prasannakumar-cric/' },
             { icon: <GitHub />, label: 'GitHub', value: `github.com/${GITHUB_USER}`, href: `https://github.com/${GITHUB_USER}` },
