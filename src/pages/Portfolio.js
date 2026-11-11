@@ -406,8 +406,9 @@ const Portfolio = () => {
 
   const profileDetails = [
     { icon: <LocationOn />, text: 'Namakkal, Tamil Nadu, India' },
-    { icon: <Email />, text: 'espprasanna613@gmail.com' },
-    { icon: <GitHub />, text: `@${GITHUB_USER} on GitHub` },
+    { icon: <Email />, text: 'espprasanna613@gmail.com', href: 'mailto:espprasanna613@gmail.com' },
+    { icon: <Phone />, text: '+91 90033 81176', href: 'tel:+919003381176' },
+    { icon: <GitHub />, text: `@${GITHUB_USER} on GitHub`, href: `https://github.com/${GITHUB_USER}` },
   ];
 
   return (
@@ -620,7 +621,26 @@ const Portfolio = () => {
                   />
                   <Divider sx={{ mb: 2, borderColor: 'rgba(148,163,184,0.14)' }} />
                   {profileDetails.map((item) => (
-                    <Box key={item.text} sx={{ display: 'flex', alignItems: 'center', gap: 1.25, mb: 1.4 }}>
+                    <Box
+                      key={item.text}
+                      component={item.href ? 'a' : 'div'}
+                      href={item.href}
+                      target={item.href?.startsWith('http') ? '_blank' : undefined}
+                      rel={item.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 1.25,
+                        mb: 1.4,
+                        minHeight: item.href ? 44 : undefined,
+                        color: 'inherit',
+                        textDecoration: 'none',
+                        touchAction: 'manipulation',
+                        WebkitTapHighlightColor: 'rgba(103,232,249,0.2)',
+                        '&:active': { opacity: 0.7 },
+                        '&:focus-visible': { outline: '2px solid #67E8F9', outlineOffset: 3, borderRadius: 4 },
+                      }}
+                    >
                       <Box sx={{ color: '#67E8F9', display: 'flex', '& svg': { fontSize: 18 } }}>{item.icon}</Box>
                       <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.88rem' }}>
                         {item.text}
@@ -658,9 +678,14 @@ const Portfolio = () => {
                 Clean code, thoughtful UX, and reliable systems.
               </Typography>
               <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.75, flexGrow: 1 }}>
-                Computer Science graduate with practical industry experience gained at Strio Kaizen Hi-Tech
-                Research Labs. I've worked across the full development lifecycle — designing user interfaces,
-                implementing backend logic, and integrating multiple APIs.
+                Full Stack Developer at T-Mark Techs with hands-on experience developing and maintaining web
+                applications, building RESTful APIs, and automating business processes. Skilled in React.js,
+                JavaScript, Node.js, Express.js, SharePoint, SPFx, Power Automate, and Supabase. Experienced in
+                SharePoint solutions, CRUD operations, third-party API integrations, and workflow automation.
+                I have also worked on real-time transport and car parking availability systems, including data
+                synchronization, backend APIs, and database management. Familiar with VPS deployment, server
+                configuration, and application maintenance, and passionate about building scalable, efficient,
+                user-friendly software.
               </Typography>
               <Chip
                 label="Strio Kaizen Hi-Tech Research Labs • Nov 2024 – Present"
@@ -846,7 +871,18 @@ const Portfolio = () => {
                 href={item.href}
                 target={item.href?.startsWith('http') ? '_blank' : undefined}
                 rel="noopener noreferrer"
-                sx={{ ...cardSx, textDecoration: 'none', color: 'inherit', p: 0 }}
+                aria-label={`${item.label}: ${item.value}`}
+                sx={{
+                  ...cardSx,
+                  textDecoration: 'none',
+                  color: 'inherit',
+                  p: 0,
+                  minHeight: 160,
+                  touchAction: 'manipulation',
+                  WebkitTapHighlightColor: 'rgba(103,232,249,0.2)',
+                  '&:active': { transform: 'scale(0.98)' },
+                  '&:focus-visible': { outline: '2px solid #67E8F9', outlineOffset: 3 },
+                }}
                 elevation={0}
               >
                 <CardContent sx={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'center', py: 3.5 }}>
