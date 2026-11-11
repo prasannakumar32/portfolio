@@ -30,6 +30,7 @@ import {
 } from '@mui/icons-material';
 
 const GITHUB_USER = 'prasannakumar32';
+const GMAIL_COMPOSE_URL = 'https://mail.google.com/mail/u/0/?view=cm&fs=1&to=espprasanna613%40gmail.com';
 const repoUrl = (name) => `https://github.com/${GITHUB_USER}/${name}`;
 
 const technicalSkills = {
@@ -411,7 +412,7 @@ const Portfolio = () => {
 
   const profileDetails = [
     { icon: <LocationOn />, text: 'Namakkal, Tamil Nadu, India' },
-    { icon: <Email />, text: 'espprasanna613@gmail.com', href: 'https://mail.google.com/mail/?view=cm&fs=1&to=espprasanna613%40gmail.com' },
+    { icon: <Email />, text: 'espprasanna613@gmail.com', href: GMAIL_COMPOSE_URL },
     { icon: <Phone />, text: '+91 90033 81176', href: 'tel:+919003381176' },
     { icon: <GitHub />, text: `@${GITHUB_USER} on GitHub`, href: `https://github.com/${GITHUB_USER}` },
   ];
@@ -630,7 +631,7 @@ const Portfolio = () => {
                       key={item.text}
                       component={item.href ? 'a' : 'div'}
                       href={item.href}
-                      target={item.href?.startsWith('http') ? '_blank' : undefined}
+                      target={item.href?.startsWith('http') && item.href !== GMAIL_COMPOSE_URL ? '_blank' : undefined}
                       rel={item.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
                       sx={{
                         display: 'flex',
@@ -896,7 +897,7 @@ const Portfolio = () => {
         <SectionHeader eyebrow="07 · Contact" title="Get In Touch" subtitle="Have a project, role, or collaboration in mind? I'd love to hear from you." />
         <Grid container spacing={3} justifyContent="center">
           {[
-            { icon: <Email />, label: 'Email', value: 'espprasanna613@gmail.com', href: 'https://mail.google.com/mail/?view=cm&fs=1&to=espprasanna613%40gmail.com' },
+            { icon: <Email />, label: 'Email', value: 'espprasanna613@gmail.com', href: GMAIL_COMPOSE_URL },
             { icon: <Phone />, label: 'Phone', value: '+91 90033 81176', href: 'tel:+919003381176' },
             { icon: <LinkedIn />, label: 'LinkedIn', value: 'linkedin.com/in/prasannakumar-cric', href: 'https://www.linkedin.com/in/prasannakumar-cric/' },
             { icon: <GitHub />, label: 'GitHub', value: `github.com/${GITHUB_USER}`, href: `https://github.com/${GITHUB_USER}` },
@@ -905,7 +906,7 @@ const Portfolio = () => {
               <Card
                 component="a"
                 href={item.href}
-                target={item.href?.startsWith('http') ? '_blank' : undefined}
+                target={item.href?.startsWith('http') && item.href !== GMAIL_COMPOSE_URL ? '_blank' : undefined}
                 rel="noopener noreferrer"
                 aria-label={`${item.label}: ${item.value}`}
                 sx={{
